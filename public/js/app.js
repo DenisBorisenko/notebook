@@ -3302,9 +3302,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['NOTES', 'NOTE_ID', 'FORM'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['NOTES', 'NOTE_ID', 'FORM', 'ERRORS'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['update', 'create', 'destroy', 'edit', 'listNotes']), {
     submit: function submit() {
       this.NOTE_ID ? this.update() : this.create();
@@ -4518,6 +4521,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _vm.ERRORS.title
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.ERRORS.title[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("v-text-field", {
             attrs: { label: "Note body", type: "text" },
             model: {
@@ -4528,6 +4537,12 @@ var render = function() {
               expression: "FORM.body"
             }
           }),
+          _vm._v(" "),
+          _vm.ERRORS.body
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.ERRORS.body[0]))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "div",
@@ -58917,9 +58932,16 @@ __webpack_require__.r(__webpack_exports__);
       title: '',
       body: ''
     },
-    note_id: null
+    note_id: null,
+    errors: {
+      title: null,
+      body: null
+    }
   },
   getters: {
+    ERRORS: function ERRORS(state) {
+      return state.errors;
+    },
     NOTES: function NOTES(state) {
       return state.notes;
     },
@@ -58953,6 +58975,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     load_notes: function load_notes(state, data) {
       state.notes = data;
+    },
+    set_errors: function set_errors(state, data) {
+      state.errors = data;
     }
   },
   actions: {
@@ -58961,7 +58986,10 @@ __webpack_require__.r(__webpack_exports__);
           state = _ref.state;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.patch("/notes/".concat(state.note_id), state.form).then(function (_ref2) {
         var data = _ref2.data.data;
+        commit('set_errors', {});
         commit('update', data);
+      })["catch"](function (err) {
+        commit('set_errors', err.response.data.errors);
       });
     },
     create: function create(_ref3) {
@@ -58969,11 +58997,15 @@ __webpack_require__.r(__webpack_exports__);
           state = _ref3.state;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/notes/', state.form).then(function (_ref4) {
         var data = _ref4.data.data;
+        commit('set_errors', {});
         commit('create', data);
+      })["catch"](function (err) {
+        commit('set_errors', err.response.data.errors);
       });
     },
     edit: function edit(_ref5, index) {
       var commit = _ref5.commit;
+      commit('set_errors', {});
       commit('edit', index);
     },
     destroy: function destroy(_ref6, data) {

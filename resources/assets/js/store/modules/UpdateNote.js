@@ -8,8 +8,12 @@ export default{
             body:'',
         },
         note_id:null,
+        errors:{title:null,body:null},
     },
     getters:{
+        ERRORS(state){
+          return state.errors
+        },
         NOTES(state){
             return state.notes
         },
@@ -44,23 +48,34 @@ export default{
         },
         load_notes(state,data){
             state.notes = data
+        },
+        set_errors(state,data){
+            state.errors = data
         }
+
     },
     actions:{
         update({commit,state}){
             axios.patch(`/notes/${state.note_id}`,state.form)
                 .then(({data:{data}})=> {
+                    commit('set_errors',{})
                     commit('update',data)
-                })
+                }).catch(err => {
+                commit('set_errors',err.response.data.errors )
+            })
         },
         create({commit,state}){
             axios.post('/notes/', state.form)
             .then(({data:{data}})=> {
+                commit('set_errors',{})
                 commit('create',data)
+            }).catch(err => {
+                commit('set_errors',err.response.data.errors )
             })
 
         },
         edit({commit}, index){
+            commit('set_errors',{})
             commit('edit',index)
         },
         destroy({commit},data){

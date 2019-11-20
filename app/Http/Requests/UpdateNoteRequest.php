@@ -15,7 +15,8 @@ class UpdateNoteRequest extends FormRequest
     function rules()
     {
         return [
-            ''
+            'title' => 'required',
+            'body' => 'required'
         ];
     }
 }

@@ -7,12 +7,15 @@
                 label="Note title"
                 type="text"
             ></v-text-field>
+            <span class="red--text" v-if="ERRORS.title">{{ERRORS.title[0]}}</span>
+
             <v-text-field
                 v-model="FORM.body"
                 label="Note body"
                 type="text"
             ></v-text-field>
-<!--            <span class="red&#45;&#45;text" v-if="errors.email">{{errors.email[0]}}</span>-->
+            <span class="red--text" v-if="ERRORS.body">{{ERRORS.body[0]}}</span>
+
             <div class="mt-5">
                 <v-btn class="mr-4" type="submit" color="green" v-if="!NOTE_ID">Create</v-btn>
                 <v-btn class="mr-4" type="submit" color="teal" v-else>Update</v-btn>
@@ -63,7 +66,8 @@
             ...mapGetters([
                 'NOTES',
                 'NOTE_ID',
-                'FORM'
+                'FORM',
+                'ERRORS'
             ]),
         },
         methods:{
