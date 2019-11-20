@@ -15,7 +15,8 @@ class CreateNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required'
+            'title' => 'required',
+            'body' => 'required',
         ];
     }
 }

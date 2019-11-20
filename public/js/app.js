@@ -3237,6 +3237,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3288,54 +3295,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      notes: {},
-      body: null,
-      note_id: null
-    };
-  },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['NOTES', 'NOTE_ID', 'FORM'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['update', 'create', 'destroy', 'edit', 'listNotes']), {
     submit: function submit() {
-      this.note_id ? this.update() : this.create();
-    },
-    update: function update() {
-      var _this = this;
-
-      this.axios.patch("/api/notes/".concat(this.note_id), this.name).then(function (res) {
-        _this.notes.unshift(res.data);
-
-        _this.name = null;
-        _this.editSlug = null;
-      });
-    },
-    create: function create() {
-      this.axios.post('notes/', this.body).then(function (res) {
-        console.log(res); // this.notes.unshift(res.data)
-        // this.name = ''
-      });
-    },
-    destroy: function destroy(slug, index) {
-      this.notes.splice(index, 1);
-      this.axios["delete"]("/api/category/".concat(slug));
-    },
-    edit: function edit(index) {
-      this.name = this.notes[index].name;
-      this.editSlug = this.notes[index].slug;
-      this.notes.splice(index, 1);
+      this.NOTE_ID ? this.update() : this.create();
     }
-  },
+  }),
   created: function created() {
-    var _this2 = this;
-
-    // if(!User.admin()){
-    //     this.$router.push('/forum')
-    // }
-    this.axios.get('/api/notes').then(function (_ref) {
-      var data = _ref.data.data;
-      _this2.notes = data;
-    });
+    this.listNotes();
   }
 });
 
@@ -4532,13 +4508,24 @@ var render = function() {
         },
         [
           _c("v-text-field", {
-            attrs: { label: "Category name", type: "text" },
+            attrs: { label: "Note title", type: "text" },
             model: {
-              value: _vm.body,
+              value: _vm.FORM.title,
               callback: function($$v) {
-                _vm.body = $$v
+                _vm.$set(_vm.FORM, "title", $$v)
               },
-              expression: "body"
+              expression: "FORM.title"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-text-field", {
+            attrs: { label: "Note body", type: "text" },
+            model: {
+              value: _vm.FORM.body,
+              callback: function($$v) {
+                _vm.$set(_vm.FORM, "body", $$v)
+              },
+              expression: "FORM.body"
             }
           }),
           _vm._v(" "),
@@ -4546,7 +4533,7 @@ var render = function() {
             "div",
             { staticClass: "mt-5" },
             [
-              !_vm.note_id
+              !_vm.NOTE_ID
                 ? _c(
                     "v-btn",
                     {
@@ -4587,7 +4574,7 @@ var render = function() {
             [
               _c(
                 "v-list-item-group",
-                _vm._l(_vm.notes, function(note, index) {
+                _vm._l(_vm.NOTES, function(note, index) {
                   return _c(
                     "div",
                     { key: note.id },
@@ -4622,7 +4609,7 @@ var render = function() {
                                   attrs: { icon: "", small: "" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.destroy(note.id, index)
+                                      return _vm.destroy([note.id, index])
                                     }
                                   }
                                 },
@@ -4641,7 +4628,11 @@ var render = function() {
                             "v-list-item-content",
                             [
                               _c("v-list-item-title", [
-                                _vm._v(_vm._s(note.name))
+                                _vm._v(_vm._s(note.title))
+                              ]),
+                              _vm._v(" "),
+                              _c("v-list-item-title", [
+                                _vm._v(_vm._s(note.body))
                               ])
                             ],
                             1
@@ -4650,7 +4641,7 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      index + 1 < _vm.notes.length
+                      index + 1 < _vm.NOTES.length
                         ? _c("v-divider", { key: index })
                         : _vm._e()
                     ],
@@ -58907,6 +58898,102 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/modules/UpdateNote.js":
+/*!*********************************************************!*\
+  !*** ./resources/assets/js/store/modules/UpdateNote.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    notes: {},
+    form: {
+      title: '',
+      body: ''
+    },
+    note_id: null
+  },
+  getters: {
+    NOTES: function NOTES(state) {
+      return state.notes;
+    },
+    FORM: function FORM(state) {
+      return state.form;
+    },
+    NOTE_ID: function NOTE_ID(state) {
+      return state.note_id;
+    }
+  },
+  mutations: {
+    destroy: function destroy(state, index) {
+      state.notes.splice(index, 1);
+    },
+    edit: function edit(state, index) {
+      state.form.title = state.notes[index].title;
+      state.form.body = state.notes[index].body;
+      state.note_id = state.notes[index].id;
+      state.notes.splice(index, 1);
+    },
+    update: function update(state, data) {
+      state.notes.unshift(data);
+      state.form.title = null;
+      state.form.body = null;
+      state.note_id = null;
+    },
+    create: function create(state, data) {
+      state.notes.unshift(data);
+      state.form.title = null;
+      state.form.body = null;
+    },
+    load_notes: function load_notes(state, data) {
+      state.notes = data;
+    }
+  },
+  actions: {
+    update: function update(_ref) {
+      var commit = _ref.commit,
+          state = _ref.state;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.patch("/notes/".concat(state.note_id), state.form).then(function (_ref2) {
+        var data = _ref2.data.data;
+        commit('update', data);
+      });
+    },
+    create: function create(_ref3) {
+      var commit = _ref3.commit,
+          state = _ref3.state;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/notes/', state.form).then(function (_ref4) {
+        var data = _ref4.data.data;
+        commit('create', data);
+      });
+    },
+    edit: function edit(_ref5, index) {
+      var commit = _ref5.commit;
+      commit('edit', index);
+    },
+    destroy: function destroy(_ref6, data) {
+      var commit = _ref6.commit;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/notes/".concat(data[0])).then(function (res) {
+        commit('destroy', data[1]);
+      });
+    },
+    listNotes: function listNotes(_ref7) {
+      var commit = _ref7.commit;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/notes').then(function (_ref8) {
+        var data = _ref8.data.data;
+        commit('load_notes', data);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/store.js":
 /*!********************************************!*\
   !*** ./resources/assets/js/store/store.js ***!
@@ -58919,11 +59006,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _modules_UpdateNote__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/UpdateNote */ "./resources/assets/js/store/modules/UpdateNote.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  modules: {}
+  modules: {
+    UpdateNote: _modules_UpdateNote__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
