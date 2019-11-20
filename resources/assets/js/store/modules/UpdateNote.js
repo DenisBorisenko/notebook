@@ -84,7 +84,7 @@ export default{
             })
         },
         listNotes({commit}){
-            axios.get('/notes').then(({data:{data}}) => {commit('load_notes',data)})
+            axios.get('/notes/notes-list').then(({data:{data}}) => {commit('load_notes',data)})
         }
     },
 }

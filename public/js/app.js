@@ -3320,6 +3320,79 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/notes/Notes.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/notes/Notes.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      q: ''
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['NOTES_ALL', 'LINKS'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadNotes', 'loadMore', 'search'])),
+  created: function created() {
+    this.loadNotes();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/is-buffer/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
@@ -4697,7 +4770,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Laravel 5 � Our Cool notes")])
+  return _c(
+    "v-container",
+    { attrs: { fluid: "", "grid-list-md": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "", "justify-center": "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs8: "" } },
+            [
+              _c("v-text-field", {
+                attrs: {
+                  label: "Search note",
+                  "prepend-inner-icon": "mdi-magnify",
+                  "solo-inverted": ""
+                },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.search(_vm.q)
+                  }
+                },
+                model: {
+                  value: _vm.q,
+                  callback: function($$v) {
+                    _vm.q = $$v
+                  },
+                  expression: "q"
+                }
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.NOTES_ALL, function(note) {
+                return _c(
+                  "v-card",
+                  { key: note.id, staticClass: "mt-2" },
+                  [
+                    _c("v-card-title", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(note.title) +
+                          "\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("v-card-subtitle", { staticClass: "pb-0" }, [
+                      _vm._v("Published " + _vm._s(note.created_at))
+                    ]),
+                    _vm._v(" "),
+                    _c("v-card-text", { staticClass: "text--primary" }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(note.body) +
+                          "\n                "
+                      )
+                    ])
+                  ],
+                  1
+                )
+              })
+            ],
+            2
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "text-center" },
+        _vm._l(_vm.LINKS, function(key, value) {
+          return _c(
+            "v-btn",
+            {
+              key: value,
+              staticClass: "ma-2",
+              attrs: { depressed: "", small: "", color: "indigo" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.loadMore(key)
+                }
+              }
+            },
+            [_vm._v("\n        " + _vm._s(value) + "\n    ")]
+          )
+        }),
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58804,15 +58974,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Notes_vue_vue_type_template_id_0eb5380c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Notes.vue?vue&type=template&id=0eb5380c& */ "./resources/assets/js/components/notes/Notes.vue?vue&type=template&id=0eb5380c&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Notes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Notes.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/notes/Notes.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Notes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Notes_vue_vue_type_template_id_0eb5380c___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Notes_vue_vue_type_template_id_0eb5380c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -58826,6 +58998,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/assets/js/components/notes/Notes.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/notes/Notes.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/assets/js/components/notes/Notes.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Notes.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/notes/Notes.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Notes_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58910,6 +59096,71 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history'
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
+
+/***/ }),
+
+/***/ "./resources/assets/js/store/modules/ListNotes.js":
+/*!********************************************************!*\
+  !*** ./resources/assets/js/store/modules/ListNotes.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    notes: {},
+    links: {}
+  },
+  getters: {
+    NOTES_ALL: function NOTES_ALL(state) {
+      return state.notes;
+    },
+    LINKS: function LINKS(state) {
+      return state.links;
+    }
+  },
+  mutations: {
+    SET_NOTES: function SET_NOTES(state, data) {
+      state.notes = data;
+    },
+    SET_LINKS: function SET_LINKS(state, links) {
+      state.links = links;
+    }
+  },
+  actions: {
+    loadNotes: function loadNotes(_ref) {
+      var commit = _ref.commit;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/notes').then(function (_ref2) {
+        var _ref2$data = _ref2.data,
+            data = _ref2$data.data,
+            links = _ref2$data.links;
+        commit('SET_NOTES', data);
+        commit('SET_LINKS', links);
+      });
+    },
+    loadMore: function loadMore(_ref3, key) {
+      var commit = _ref3.commit;
+
+      if (key) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(key).then(function (_ref4) {
+          var _ref4$data = _ref4.data,
+              data = _ref4$data.data,
+              links = _ref4$data.links;
+          commit('SET_NOTES', data);
+          commit('SET_LINKS', links);
+        });
+      }
+    },
+    search: function search(_ref5, query) {
+      var commit = _ref5.commit;
+    }
+  }
+});
 
 /***/ }),
 
@@ -59016,7 +59267,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     listNotes: function listNotes(_ref7) {
       var commit = _ref7.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/notes').then(function (_ref8) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/notes/notes-list').then(function (_ref8) {
         var data = _ref8.data.data;
         commit('load_notes', data);
       });
@@ -59039,13 +59290,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_UpdateNote__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/UpdateNote */ "./resources/assets/js/store/modules/UpdateNote.js");
+/* harmony import */ var _modules_ListNotes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/ListNotes */ "./resources/assets/js/store/modules/ListNotes.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
+
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    UpdateNote: _modules_UpdateNote__WEBPACK_IMPORTED_MODULE_2__["default"]
+    UpdateNote: _modules_UpdateNote__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ListNotes: _modules_ListNotes__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);

@@ -12,6 +12,7 @@ Route::group(['middleware' => 'jwt.auth'], function(){
         Route::post('/', 'NoteController@store');
         Route::patch('/{id}','NoteController@update');
         Route::delete('/{id}','NoteController@delete');
+        Route::get('/notes-list','NoteController@listNotes');
     });
 });
 

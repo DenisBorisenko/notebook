@@ -7,10 +7,23 @@ use App\Http\Requests\CreateNoteRequest;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
     public function index()
+    {
+        $notes = Auth::user()->notes()->latestFirst()->paginate(10);
+        return NoteResource::collection($notes);
+    }
+
+    public function search(Request $request)
+    {
+
+        $notes =  Note::where()
+    }
+
+    public function listNotes()
     {
         return NoteResource::collection(Note::all());
     }
