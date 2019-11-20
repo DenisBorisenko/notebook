@@ -21,9 +21,9 @@
           dark
           icon
         >
-        <router-link :to="item.src">
+        <a :to="item.src">
           <v-icon size="24px">{{ item.icon }}</v-icon>
-        </router-link>
+        </a>
         </v-btn>
       </v-card-title>
     </v-card>
