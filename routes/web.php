@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::view('/', 'welcome');
 Route::view('/{any}','welcome');
-// Route::view('/{any}/{any1}','home');
 

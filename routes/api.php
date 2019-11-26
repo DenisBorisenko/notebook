@@ -13,12 +13,10 @@ Route::group(['middleware' => 'jwt.auth'], function(){
         Route::patch('/{id}','NoteController@update');
         Route::delete('/{id}','NoteController@delete');
         Route::get('/notes-list','NoteController@listNotes');
+        Route::get('/search','NoteController@search');
     });
 });
 
 Route::group(['middleware' => 'jwt.refresh'], function(){
   Route::get('auth/refresh', 'AuthController@refresh');
 });
-
-
-

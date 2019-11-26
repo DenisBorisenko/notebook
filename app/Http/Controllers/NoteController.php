@@ -19,8 +19,13 @@ class NoteController extends Controller
 
     public function search(Request $request)
     {
+        $q = $request->get('q');
+        $notes =  Auth::user()->notes()
+            ->where('title', 'like', '%' . $q . '%')
+            ->orWhere('body', 'like', '%' . $q . '%')
+            ->get();
+        return NoteResource::collection($notes);
 
-        $notes =  Note::where()
     }
 
     public function listNotes()

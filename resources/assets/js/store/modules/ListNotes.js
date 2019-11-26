@@ -38,7 +38,10 @@ export default{
             }
         },
         search({commit},query){
-
+            axios.get(`/notes/search?q=${query}`).then(({data:{data}})=> {
+                commit('SET_NOTES',data)
+                commit('SET_LINKS',{})
+            })
         }
     }
 }

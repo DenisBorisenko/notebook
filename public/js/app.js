@@ -3377,6 +3377,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4843,28 +4844,13 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "text-center" },
-        _vm._l(_vm.LINKS, function(key, value) {
-          return _c(
-            "v-btn",
-            {
-              key: value,
-              staticClass: "ma-2",
-              attrs: { depressed: "", small: "", color: "indigo" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.loadMore(key)
-                }
-              }
-            },
-            [_vm._v("\n        " + _vm._s(value) + "\n    ")]
-          )
-        }),
-        1
-      )
+      _c("div", { staticClass: "text-center" }, [
+        _vm._v(
+          " 'indigo' ? 'disabled'\n        @click.prevent=\"loadMore(key)\">\n        " +
+            _vm._s(_vm.value) +
+            "\n    "
+        )
+      ])
     ],
     1
   )
@@ -59158,6 +59144,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     search: function search(_ref5, query) {
       var commit = _ref5.commit;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/notes/search?q=".concat(query)).then(function (_ref6) {
+        var data = _ref6.data.data;
+        commit('SET_NOTES', data);
+        commit('SET_LINKS', {});
+      });
     }
   }
 });

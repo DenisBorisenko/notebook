@@ -30,9 +30,10 @@
                     class="ma-2"
                     v-for="(key,value) in LINKS"
                     :key="value"
+
                     depressed
                     small
-                    color="indigo"
+                    :color=value : 'indigo' ? 'disabled'
                     @click.prevent="loadMore(key)">
                     {{value}}
                 </v-btn>
